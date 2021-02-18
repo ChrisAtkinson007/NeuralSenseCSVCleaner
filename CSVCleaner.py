@@ -1,7 +1,13 @@
 import pandas as pd
 import os
 
-for filename in os.listdir('C:/Users/Chris (Admin)/PycharmProjects/NSenseCSVCleaner'):
+path=os.getcwd()+'\processed'
+try:
+    os.mkdir(path)
+except:
+    print("file already exists")
+
+for filename in os.listdir(os.getcwd()):
     if filename.endswith('.csv'):
         print(filename)
         #Read in files from working directory
@@ -22,5 +28,6 @@ for filename in os.listdir('C:/Users/Chris (Admin)/PycharmProjects/NSenseCSVClea
         data=data.drop(['Timestamp', 'Row', 'ESource', 'SlideEvent', 'StimType', 'Duration', 'CollectionPhase', 'EventSource'], axis=1)
         #Removing all NaN rows
         data=data.dropna()
-        direc=r'C:\Users\Chris (Admin)\PycharmProjects\NSenseCSVCleaner\Processed\proc' + filename
+        direc=path + '\proc' + filename
+        print(direc)
         data.to_csv(direc)
