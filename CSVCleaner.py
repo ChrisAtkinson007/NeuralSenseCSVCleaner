@@ -9,17 +9,22 @@ except:
 
 ClientCode=input("Please input a 4 character client code: ")
 while len(ClientCode)!=4:
-    ClientCode=input("Incorrect Client Code Length, Please try again")
+    ClientCode=input("Incorrect Client Code Length, Please try again ")
 
 ProjDate=input("Please input 6 digits yy/mm/dd representing the project date: ")
 while len(ProjDate)!=6:
-    ProjDate=input("Incorrect Date Length, Please try again")
+    ProjDate=input("Incorrect Date Length, Please try again ")
+
+SubCode=input("Please enter sub project code: ")
+while (len(SubCode)<1) or (len(SubCode)>9):
+    SubCode=input("Please try enter sub project code again: ")
 
 for filename in os.listdir(os.getcwd()):
     if filename.endswith('.csv'):
         print(filename)
-        RespCode = filename[-6:-4]
-        Fname = ClientCode + "_" + ProjDate + "_" + RespCode + "_e.csv"
+        #This needs to change, to include all digits before the final .csv, if there are not 2-3 digits leading the .csv, it should ask for a manual respondent number.
+        RespCode = "0"+filename[-6:-4]
+        Fname = ClientCode + "_" + ProjDate + "_" + SubCode + "_" + RespCode + "_e.csv"
         print(Fname)
         #Read in files from working directory
         data=pd.read_csv(filename)
