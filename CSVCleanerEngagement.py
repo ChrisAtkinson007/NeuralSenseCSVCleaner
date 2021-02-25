@@ -28,11 +28,12 @@ for filename in os.listdir(os.getcwd()):
         try:
             RespCode=filename.split("_")
             RespCode = RespCode[-1].split(".")
+            RespCode = RespCode[0].split(" ")
             RespCode = RespCode[0]
         except:
             RespCode=input("Please enter the respondent code manually")
 
-        Fname = ClientCode + "_" + ProjDate + "_" + SubCode + "_" + RespCode + "_EEG.csv"
+        Fname = ClientCode + "_" + ProjDate + "_" + SubCode + "_" + RespCode + "_ENG.csv"
         print(Fname)
         #Read in files from working directory
         data=pd.read_csv(filename)
@@ -49,7 +50,8 @@ for filename in os.listdir(os.getcwd()):
         data=data[data.ESource!='1']
 
         #Removing all the unwanted columns
-        data=data.drop(['Timestamp', 'Row', 'ESource', 'SlideEvent', 'StimType', 'Duration', 'CollectionPhase', 'EventSource'], axis=1)
+        data=data[['SourceStimuliName', 'High Engagement']]
+        #data=data.drop(['Timestamp', 'Row', 'ESource', 'SlideEvent', 'StimType', 'Duration', 'CollectionPhase', 'EventSource', 'Epoch', 'Hour', 'Min', 'Sec', 'Milli'], axis=1)
         prelength=len(data)
         #Removing all NaN rows
         data=data.dropna()
