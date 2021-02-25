@@ -25,10 +25,14 @@ for filename in os.listdir(os.getcwd()):
     if filename.endswith('.csv'):
         print("_____________________________ \n")
         print(filename)
-        #This needs to change, to include all digits before the final .csv, if there are not 2-3 digits leading the .csv, it should ask for a manual respondent number.
-        RespCode=filename.split("_")
-        RespCode=RespCode[-1].split(".")
-        RespCode=RespCode[0]
+        try:
+            RespCode=filename.split("_")
+            RespCode = RespCode[-1].split(".")
+            RespCode = RespCode[0].split(" ")
+            RespCode = RespCode[0]
+        except:
+            RespCode=input("Please enter the respondent code manually")
+
         Fname = ClientCode + "_" + ProjDate + "_" + SubCode + "_" + RespCode + "_EEG.csv"
         print(Fname)
         #Read in files from working directory
